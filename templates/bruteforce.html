@@ -1,0 +1,9 @@
+
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Caesar Attack · CipherLab</title><link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></head>
+<body><div class="layout"><aside class="sidebar"><div class="brand"><div class="brandmark">C</div><div><b>CipherLab</b><small>PRO CRYPTO SUITE</small></div></div><nav><a href="/">◈ <span>Converter</span></a><a href="/history">◷ <span>History</span></a><a class="active" href="/bruteforce">⚡ <span>Caesar Attack</span></a><a href="/algorithms">◎ <span>Algorithms</span></a></nav></aside>
+<main class="main"><header class="top"><div><p class="kicker">CRYPTANALYSIS LAB</p><h1>Caesar <em>Brute Force</em></h1><p class="muted">Try every possible Caesar shift and compare the candidates.</p></div></header>
+<section class="panel"><label>CAESAR CIPHERTEXT<textarea id="text" style="height:150px" placeholder="Paste ciphertext here..."></textarea></label><button class="primary" id="run">Run 26 Shifts ⚡</button></section>
+<section class="attack-grid" id="results"></section></main></div>
+<script>
+document.getElementById('run').onclick=async()=>{let text=document.getElementById('text').value;let r=await fetch('/api/bruteforce',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});let d=await r.json();document.getElementById('results').innerHTML=d.success?d.results.map(x=>`<article class="candidate"><span>SHIFT ${x.shift}</span><p>${x.text.replaceAll('<','&lt;')}</p><button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></article>`).join(''):`<div class="toast">${d.error}</div>`}
+</script></body></html>

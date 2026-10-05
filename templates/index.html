@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CipherLab Pro</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head><body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark">C</div><div><b>CipherLab</b><small>PRO CRYPTO SUITE</small></div></div>
+  <nav>
+    <a class="active" href="/">◈ <span>Converter</span></a>
+    <a href="/history">◷ <span>History</span></a>
+    <a href="/bruteforce">⚡ <span>Caesar Attack</span></a>
+    <a href="/algorithms">◎ <span>Algorithms</span></a>
+  </nav>
+  <div class="side-status"><i></i><div><b>Engine Online</b><small>Local processing</small></div></div>
+</aside>
+<main class="main">
+<header class="top"><div><p class="kicker">CRYPTOGRAPHY WORKBENCH</p><h1>Secure <em>Cipher</em> Studio</h1><p class="muted">Encrypt, decrypt, analyze and visualize classical ciphers.</p></div><div class="pill"><i></i> SYSTEM READY</div></header>
+
+<section class="stats">
+ <div class="stat"><span>OPERATIONS</span><strong id="ops">0</strong><small>Total conversions</small></div>
+ <div class="stat"><span>ENCRYPTION</span><strong id="enc">0</strong><small>Transformation jobs</small></div>
+ <div class="stat"><span>ALGORITHM</span><strong id="algo">—</strong><small>Most used</small></div>
+ <div class="stat"><span>CHARACTERS</span><strong id="chars">0</strong><small>Processed text</small></div>
+</section>
+
+<section class="panel">
+ <div class="panel-head"><div><h2>Conversion Workspace</h2><p class="muted">Move between Plain Text, Caesar and Vigenère.</p></div><button class="ghost" id="swap">⇄ Swap</button></div>
+ <div class="route">
+   <label>FROM<select id="source"><option value="plain">Plain Text</option><option value="caesar">Caesar Cipher</option><option value="vigenere">Vigenère Cipher</option></select></label>
+   <b>→</b>
+   <label>TO<select id="target"><option value="caesar">Caesar Cipher</option><option value="plain">Plain Text</option><option value="vigenere">Vigenère Cipher</option></select></label>
+ </div>
+ <div class="options">
+   <label id="shiftWrap">CAESAR SHIFT<input id="shift" type="number" value="3" min="-25" max="25"></label>
+   <label id="keyWrap" class="hide">VIGENÈRE KEY<input id="key" placeholder="e.g. SECURITY"></label>
+   <label>TEXT FILE<input id="file" type="file" accept=".txt"></label>
+ </div>
+ <div class="editors">
+   <div class="editor"><div class="editorbar"><span>INPUT · <b id="inType">Plain Text</b></span><small id="count">0 chars</small></div><textarea id="input" placeholder="Type or paste your text..."></textarea></div>
+   <div class="editor"><div class="editorbar"><span>OUTPUT · <b id="outType">Caesar Cipher</b></span><button id="copy">Copy</button></div><textarea id="output" readonly placeholder="Result appears here..."></textarea></div>
+ </div>
+ <div class="actions"><button class="primary" id="convert">Convert Text <span>→</span></button><button class="ghost" id="download">Download</button><button class="danger" id="clear">Clear</button></div>
+ <div id="toast" class="toast hide"></div>
+</section>
+
+<section class="visual">
+ <div><p class="kicker">LIVE VISUALIZATION</p><h2>Character Mapping</h2><p class="muted">See how the selected cipher transforms the text.</p></div>
+ <div id="mapping" class="mapping"><div class="empty">Run a conversion to visualize the mapping.</div></div>
+</section>
+</main></div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>

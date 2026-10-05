@@ -1,0 +1,10 @@
+
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>History · CipherLab</title><link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></head>
+<body><div class="layout"><aside class="sidebar"><div class="brand"><div class="brandmark">C</div><div><b>CipherLab</b><small>PRO CRYPTO SUITE</small></div></div><nav><a href="/">◈ <span>Converter</span></a><a class="active" href="/history">◷ <span>History</span></a><a href="/bruteforce">⚡ <span>Caesar Attack</span></a><a href="/algorithms">◎ <span>Algorithms</span></a></nav></aside>
+<main class="main"><header class="top"><div><p class="kicker">ACTIVITY LOG</p><h1>Operation <em>History</em></h1><p class="muted">Review and replay recent cryptographic operations.</p></div><button class="danger" id="clearHistory">Clear All</button></header>
+<section class="panel"><div id="history" class="history"></div></section></main></div>
+<script>
+async function load(){let r=await fetch('/api/history');let h=await r.json();let box=document.getElementById('history');box.innerHTML=h.length?h.map(x=>`<article class="history-item"><div><b>${name(x.source)} → ${name(x.target)}</b><small>${x.time} · Shift ${x.shift}${x.key?' · Key '+x.key:''}</small></div><div class="preview">${esc(x.output)}</div><div class="row"><button onclick="copy('${encodeURIComponent(x.output)}')">Copy</button><button onclick="del('${x.id}')">Delete</button></div></article>`).join(''):'<div class="empty">No operations yet.</div>'}
+function name(x){return x==='plain'?'Plain Text':x==='caesar'?'Caesar':'Vigenère'} function esc(s){return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')} async function del(id){await fetch('/api/history/'+id,{method:'DELETE'});load()} function copy(s){navigator.clipboard.writeText(decodeURIComponent(s))}
+document.getElementById('clearHistory').onclick=async()=>{await fetch('/api/history',{method:'DELETE'});load()};load();
+</script></body></html>
